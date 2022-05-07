@@ -30,10 +30,11 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @Transient
-    private String passwordConfirm;
-
     @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
     @Column(name = "roles")
     private Set<Role> roles;
 
@@ -78,14 +79,6 @@ public class User implements UserDetails {
 
     public void setAge(int age) {
         this.age = age;
-    }
-
-    public String getPasswordConfirm() {
-        return passwordConfirm;
-    }
-
-    public void setPasswordConfirm(String passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
     }
 
     public Set<Role> getRoles() {
@@ -148,7 +141,6 @@ public class User implements UserDetails {
                 ", age=" + age +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", passwordConfirm='" + passwordConfirm + '\'' +
                 ", roles=" + roles +
                 '}';
     }

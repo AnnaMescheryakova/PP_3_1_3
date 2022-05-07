@@ -31,7 +31,8 @@
             <ul class="nav nav-pills flex-column">
                 <br/>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/user}">User</a>
+                    <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" th:href="@{/admin}">Admin</a>
+                    <a class="nav-link active" th:href="@{/user}">User</a>
                 </li>
             </ul>
         </div>
@@ -58,6 +59,7 @@
                                     <th>First Name</th>
                                     <th>Last Name</th>
                                     <th>Age</th>
+                                    <th>Username</th>
                                     <th>Role</th>
                                 </tr>
                                 </thead>
@@ -67,6 +69,7 @@
                                     <td th:text="${user.name}"></td>
                                     <td th:text="${user.surname}"></td>
                                     <td th:text="${user.age}"></td>
+                                    <td th:text="${user.username}"></td>
                                     <td><a th:each="role : ${user.getRoles()}" th:text="${role.name} + ' '"></a></td>
 
                                 </tr>

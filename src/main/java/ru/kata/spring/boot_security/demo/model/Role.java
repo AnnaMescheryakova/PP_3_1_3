@@ -16,9 +16,7 @@ public class Role implements GrantedAuthority {
     @Column(name = "name")
     private String name;
 
-    @Transient
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+    private final static String PREFIX = "ROLE_";
 
     public Role() {
     }
@@ -46,7 +44,7 @@ public class Role implements GrantedAuthority {
 
     @Override
     public String getAuthority() {
-        return getName();
+        return PREFIX + getName();
     }
 
     @Override
@@ -54,7 +52,6 @@ public class Role implements GrantedAuthority {
         return "Role{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", users=" + users +
                 '}';
     }
 }
